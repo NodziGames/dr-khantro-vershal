@@ -1,5 +1,6 @@
 package bot.discord;
 
+import bot.discord.commands.*;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class Parser {
 
         String[] temp_args = msg.split(" ");
 
-        List<String> args = new ArrayList<>();
+        List<String> args = new ArrayList<String>();
 
         args.addAll(Arrays.asList(temp_args));
 
@@ -29,11 +30,17 @@ public class Parser {
 
         //Process Command (First argument)
         switch (args.get(0)) {
+            case CM_HELP:
+                Help.start(event, args);
+                break ;
+            case CM_SYMPTOMS:
+                Symptoms.start(event, args);
+                break ;
             case CM_DIAGNOSE:
-                event.getChannel().sendMessage("You've asked me to diagnose you").queue();
+                Diagnose.start(event, args);
                 break ;
             case CM_COUNSEL:
-                event.getChannel().sendMessage("You've asked me to give you counsel").queue();
+                Counsel.start(event, args);
                 break ;
         }
     }
